@@ -5,7 +5,7 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 export default function Footer() {
     const [selected, setSelected] = React.useState(1);
     return <NativeBaseProvider>
-        <Box flex={1} bg="white" safeAreaTop width="100%" maxW="3000px" alignSelf="center">
+        <Box flex={1} bg="white"  width="100%" maxW="3000px" alignSelf="center">
           <Center flex={1}></Center>
           <HStack bg="white" alignItems="center" safeAreaBottom shadow={6}>
             <Pressable cursor="pointer" opacity={selected === 0 ? 1 : 0.5} py="3" flex={1} onPress={() => setSelected(0)}>
