@@ -1,15 +1,20 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Text, View } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Home from '../Screens/HomeScreen';
 import Saved from '../Screens/SavedRecipes'
 import Profile from '../Screens/ProfileScreen'
 import CustomLeftDrawer from './LeftDrawer';
 import CustomRightDrawer from './RightDrawer';
+import {useColorMode} from 'native-base'
 
 const LeftDrawer = createDrawerNavigator();
 
 function LeftDrawerScreen() {
+  const {
+    colorMode,
+    toggleColorMode
+  } = useColorMode();
+  
   return (
     <LeftDrawer.Navigator drawerContent={props => <CustomLeftDrawer {...props}/>}
       useLegacyImplementation
@@ -17,8 +22,13 @@ function LeftDrawerScreen() {
       screenOptions={{ 
         drawerPosition: 'left', 
         headerShown: false,
-        drawerActiveBackgroundColor: 'rgba(89, 219, 183, 0.2)',
-        drawerActiveTintColor: '#59DBB7',
+
+        drawerInactiveBackgroundColor: colorMode === "dark" ? "black" : "white",
+        drawerInactiveTintColor: colorMode === "dark" ? "white" : "black",
+
+        drawerActiveBackgroundColor: colorMode === "dark" ? "rgba(89, 219, 183, 0.18)" : "rgba(89, 219, 183, 0.18)",
+        drawerActiveTintColor: colorMode === "dark" ? '#59DBB7' : '#59DBB7',
+        
         drawerLabelStyle:{
           marginLeft: -10
         }

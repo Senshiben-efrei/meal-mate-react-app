@@ -1,9 +1,14 @@
-import { Center, HStack, Text, Icon, IconButton, Image, VStack, AspectRatio } from 'native-base';
+import { Center, HStack, Text, Icon, IconButton, Image, VStack, AspectRatio, useColorMode } from 'native-base';
 import { Ionicons } from "@expo/vector-icons"
 
 export default function FavRecipe(props) {
+    const {
+      colorMode,
+      toggleColorMode
+    } = useColorMode();
+
     return(
-        <Center backgroundColor="white" mx="6" my="2" px="2" borderRadius="10" shadow="1">
+        <Center backgroundColor={colorMode === "dark" ? "gray.900" : "white"} mx="6" my="2" px="2" borderRadius="10" shadow="1">
             <HStack space="3" justifyContent="space-around" alignItems="center" flex="1" >
                 <AspectRatio w="20%" ratio={2 / 1.3}>
                 <Image borderRadius="10" source={{

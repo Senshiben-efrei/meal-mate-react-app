@@ -1,22 +1,21 @@
 import React from 'react';
-import { NativeBaseProvider, Box } from 'native-base';
-import Footer from './components/Footer';
-import Recipes from './components/Recipes';
-import Signin from './components/Signin';
-import Signup from './components/Signup';
-import { NavigationContainer } from '@react-navigation/native';
+import { NativeBaseProvider, extendTheme } from 'native-base';
+import { AuthProvider } from './Contexts/AuthContext';
+import Navigation from './Stacks/Navigation'
 
-import AppStack from './Stacks/AppStack';
-import AuthStack from './Stacks/AuthStack';
-
+// Define the config
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: "dark",
+};
+const customTheme = extendTheme({ config });
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        {/* <AuthStack /> */}
-        <AppStack />        
-      </NavigationContainer>
+    <NativeBaseProvider theme={customTheme}>
+      <AuthProvider>
+        <Navigation />
+      </AuthProvider>
     </NativeBaseProvider>
   );
 }

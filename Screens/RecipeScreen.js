@@ -1,12 +1,18 @@
-import { Text, View, Box, Center, Heading, IconButton, AspectRatio, Divider, Image, Icon, HStack, Badge, ZStack, ScrollView } from 'native-base';
+import { Text, View, Box, Center, Heading, IconButton, AspectRatio, Divider, Image, Icon, HStack, Badge, ZStack, ScrollView, useColorMode } from 'native-base';
 import { Octicons, MaterialCommunityIcons, Ionicons, AntDesign } from "@expo/vector-icons";
 import React, {useState, useEffect} from 'react';
+const Env = require('../Env/EvnVariables')
 
 export default function RecipeScreen({navigation, route}) {
+    const {
+        colorMode,
+        toggleColorMode
+    } = useColorMode();
+
     const [recipeIngredient, setRecipeIngredient] = useState([]);
 
     const GetRecipes = () => {
-        fetch('http://192.168.1.74:5000/prepare/'+route.params.id_recipe)
+        fetch(`${Env.default.ip}/prepare/${route.params.id_recipe}`)
         .then(response => response.json())
         .then((data) => {
             setRecipeIngredient(data.splice(0,30));
@@ -18,20 +24,20 @@ export default function RecipeScreen({navigation, route}) {
         GetRecipes()
     },[])
     return(
-        <View flex="1">
+        <View backgroundColor={colorMode === "dark" ? "black" : "coolGray.100"} flex="1">
             <ZStack>
                 <AspectRatio w="100%" ratio={16 / 10}>
                 <Image borderRadius="25" source={{
                 uri: route.params.image_url}} alt="image" />
                 </AspectRatio>
                 <HStack space="73%" alignItems="center" px="3"  pt="7" pb="1" borderRadius="15">
-                    <IconButton backgroundColor="white:alpha.70" icon={<Icon as={<Ionicons name="close-outline" />} />} borderRadius="15" _icon={{
-                                color: "black",
+                    <IconButton backgroundColor={colorMode === "dark" ? "black:alpha.70" : "white:alpha.70"} icon={<Icon as={<Ionicons name="close-outline" />} />} borderRadius="15" _icon={{
+                                color: colorMode === "dark" ? "white" : "black",
                                 size: "xl"
                             }} _hover={{
-                                bg: "black:alpha.20"
+                                bg: colorMode === "dark" ? "black" : "white"
                             }} _pressed={{
-                                bg: "black:alpha.20",
+                                bg: colorMode === "dark" ? "black" : "white",
                                 _icon: {
                                 name: "emoji-flirt"
                                 },
@@ -46,13 +52,13 @@ export default function RecipeScreen({navigation, route}) {
                                 }
                             }} 
                             onPress={() => { navigation.navigate('List') }}/>
-                    <IconButton backgroundColor="white:alpha.70" icon={<Icon as={<Ionicons name="heart-outline" />} />} borderRadius="15" _icon={{
-                                color: "black",
+                    <IconButton backgroundColor={colorMode === "dark" ? "black:alpha.70" : "white:alpha.70"} icon={<Icon as={<Ionicons name="heart-outline" />} />} borderRadius="15" _icon={{
+                                color: colorMode === "dark" ? "white" : "black",
                                 size: "xl"
                             }} _hover={{
-                                bg: "black:alpha.20"
+                                bg: colorMode === "dark" ? "black" : "white"
                             }} _pressed={{
-                                bg: "black:alpha.20",
+                                bg: colorMode === "dark" ? "black" : "white",
                                 _icon: {
                                 name: "emoji-flirt"
                                 },
@@ -70,7 +76,7 @@ export default function RecipeScreen({navigation, route}) {
                 </HStack>
             </ZStack>
 
-            <ScrollView alignSelf="center" width="90%" borderRadius="15" p="5" backgroundColor="white" mt="50%" >
+            <ScrollView alignSelf="center" width="90%" borderRadius="15" p="5" backgroundColor={colorMode === "dark" ? "gray.900" : "white"} mt="50%" >
                 <View>
                     <Text fontSize="xl" fontWeight="bold">{route.params.recipe_name}</Text>
                     <HStack mt="3" space={3} justifyContent="space-around">

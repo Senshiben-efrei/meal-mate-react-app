@@ -1,13 +1,19 @@
-import { HStack, View, Icon, IconButton, Text, ScrollView } from 'native-base';
+import { HStack, View, Icon, IconButton, Text, ScrollView, useColorMode } from 'native-base';
 import React, {useState, useEffect} from 'react';
 import { AntDesign, Ionicons } from "@expo/vector-icons"
 import FavRecipe from '../components/FavRecipe';
+const Env = require('../Env/EvnVariables')
 
 export default function Saved({navigation}) {
+  const {
+      colorMode,
+      toggleColorMode
+  } = useColorMode();
+
   const [fav, setFavs] = useState([]);
 
   const GetRecipes = () => {
-      fetch('http://192.168.1.74:5000/recipes')
+      fetch(`${Env.default.ip}/recipes`)
       .then(response => response.json())
       .then((data) => {
         setFavs(data.splice(0,15));
@@ -19,10 +25,10 @@ export default function Saved({navigation}) {
       GetRecipes()
   },[])
   return (
-    <View flex={1} alignItems="center">
-      <HStack space="16" alignItems="center" px="3"  pt="7" pb="1" borderRadius="15" background="white" shadow="3">
+    <View backgroundColor={colorMode === "dark" ? "black" : "coolGray.100"} flex={1} alignItems="center">
+      <HStack backgroundColor={colorMode === "dark" ? "gray.900" : "white"}  space="16" alignItems="center" px="3"  pt="7" pb="1" borderRadius="15" shadow="3">
       <IconButton icon={<Icon as={<Ionicons name="close-outline" />} />} borderRadius="full" _icon={{
-                  color: "black",
+                  color: colorMode === "dark" ? "white" : "black" ,
                   size: "xl"
                 }} _hover={{
                   bg: "black:alpha.20"
@@ -43,7 +49,7 @@ export default function Saved({navigation}) {
                 }} 
                 onPress={() => { navigation.navigate('Home Page') }}/>
         <Text fontSize="3xl">Recipe Book</Text>
-        <Icon color="#59DBB7" as={AntDesign} name="heart" size="lg"/>
+        <Icon color="#59DBB7" as={<AntDesign name="heart"/>}  size="md" mx="3"/>
       </HStack>
 
       <ScrollView maxW="3000" width="100%" _contentContainerStyle={{ minW: "72" }}>

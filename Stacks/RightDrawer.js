@@ -1,12 +1,18 @@
-import { ScrollView, Text, View } from 'native-base';
+import { ScrollView, Text, View, useColorMode } from 'native-base';
 import React, {useState, useEffect} from 'react';
 import Ingredient from '../components/Ingredient'
+const Env = require('../Env/EvnVariables')
 
 export default function RightDrawer(props) {
+    const {
+      colorMode,
+      toggleColorMode
+    } = useColorMode();
+
     const [ingredient, setIngredients] = useState([]);
 
     const GetRecipes = () => {
-        fetch('http://192.168.1.74:5000/ingredients')
+        fetch(`${Env.default.ip}/ingredients`)
         .then(response => response.json())
         .then((data) => {
             setIngredients(data.splice(0,25));
@@ -18,7 +24,7 @@ export default function RightDrawer(props) {
         GetRecipes()
     },[])
     return (        
-        <View flex="1">
+        <View backgroundColor={colorMode === "dark" ? "black" : "coolGray.100"} flex="1">
             <View alignItems="center" pt="50">
                 <Text pb="5" fontSize="2xl">Short List</Text>
             </View>

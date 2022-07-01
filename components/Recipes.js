@@ -1,13 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import { ScrollView, Center, View, Input, Icon, Pressable } from 'native-base';
+import { ScrollView, Center, View, Input, Icon, Pressable, useColorMode } from 'native-base';
 import { Ionicons } from "@expo/vector-icons";
 import Recipe from './Recipe';
+const Env = require('../Env/EvnVariables')
 
 export default function Recipes({navigation}) {
+    const {
+      colorMode,
+      toggleColorMode
+    } = useColorMode();
+
     const [recipe, setRecipe] = useState([]);
 
     const GetRecipes = (n) => {
-        fetch('http://192.168.1.74:5000/recipes')
+        fetch(`${Env.default.ip}/recipes`)
         .then(response => response.json())
         .then((data) => {
             setRecipe(data.splice(25,n));
@@ -16,12 +22,12 @@ export default function Recipes({navigation}) {
     }
 
     useEffect(() => {
-        GetRecipes(30)
+        GetRecipes(5)
     },[])
     return (
-        <View>
-            <Center bgColor="white" pt="10" pb="5" px="5">
-                <Input h="12" placeholder="What recipe are you looking for ?" variant="filled" width="100%" borderRadius="10" px="5" borderWidth="0" InputRightElement={<Icon mr="4" size="4" color="black" as={<Ionicons name="ios-search" />} />} />
+        <View backgroundColor={colorMode === "dark" ? "black" : "coolGray.100"}>
+            <Center backgroundColor={colorMode === "dark" ? "gray.900" : "white"} pt="10" pb="5" px="5">
+                <Input h="12"placeholderTextColor={colorMode === "dark" ? "warmGray.400" : "coolGray.400"} placeholder="What recipe are you looking for ?" variant="filled" width="100%" borderRadius="10" px="5" borderWidth="0" InputRightElement={<Icon mr="4" size="4" color={colorMode === "dark" ? "white" : "black"} as={<Ionicons name="ios-search" />} />} />
             </Center>
             <Center h = "87%">
                 <ScrollView maxW="3000" width="100%" _contentContainerStyle={{
