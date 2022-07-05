@@ -14,7 +14,7 @@ export default function Recipe(props) {
         <Box>
           <AspectRatio w="100%" ratio={16 / 6}>
             <Image source={{
-            uri: props.item.image_url}} alt="image" />
+            uri: props.item.image}} alt="image" />
           </AspectRatio>
           <Center rounded="xl" opacity={70} position="absolute" top="3" right="3">            
             <IconButton icon={<Icon as={<Octicons name="heart-fill" />} />} borderRadius="full" _icon={{
@@ -63,18 +63,18 @@ export default function Recipe(props) {
         <Stack backgroundColor={colorMode === "dark" ? "gray.900" : "white"}  p='4' space={2}>
           <HStack space="3" justifyContent="space-around" alignItems="center">
             <Heading size="md" w='70%' ml="-1">
-            {props.item.recipe_name}
+            {props.item.name}
             </Heading>
             <Icon as={<MaterialCommunityIcons name="timer-outline" />} />
             <Text fontWeight="400">
-                  {props.item.preptime/60} min
+                  {props.item.time} 
             </Text>
           </HStack>
                     
           <HStack space={3} justifyContent="space-around">
-            <Badge width="30%" color="black" variant="outline" rounded="xl" >{props.item.calories + ' Kcal'}</Badge>
-            <Badge width="30%" color="black" variant="outline" rounded="xl" >{props.item.fat + 'g fat'}</Badge>
-            <Badge width="30%" color="black" variant="outline" rounded="xl" >{props.item.tags0}</Badge>
+            <Badge width="30%" color="black" variant="outline" rounded="xl" >{props.item.nutrition.calories + ' Kcal'}</Badge>
+            <Badge width="30%" color="black" variant="outline" rounded="xl" >{props.item.nutrition.sugar + 'g sugar'}</Badge>
+            <Badge width="30%" color="black" variant="outline" rounded="xl" >{props.item.tags[5]}</Badge>
           </HStack>
         </Stack>
       </Box>
