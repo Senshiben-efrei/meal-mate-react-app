@@ -24,8 +24,8 @@ export default function Recipes({navigation}) {
     }
 
     useEffect(() => {
-        console.log(recipeList)
-        GetRecipes()
+        // GetRecipes()
+        setRecipe(recipeList.splice(0,10))
     },[])
     return (
         <View backgroundColor={colorMode === "dark" ? "black" : "coolGray.100"}>
@@ -40,7 +40,7 @@ export default function Recipes({navigation}) {
                 {recipe.map(recipe => {return (
                     <Pressable onPress={() => {
                         navigation.navigate('recipe', recipe)}}
-                        key={recipe.id_recipe}>
+                        key={recipe.recipe_id}>
                         <Recipe item={recipe} />
                     </Pressable>
                     )})}
