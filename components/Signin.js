@@ -31,7 +31,7 @@ export default function Signin({navigation}) {
             <FormControl>
               <FormControl.Label>Password</FormControl.Label>
               <Input type="password" value={Password} onChangeText={text => setPassword(text)} />
-              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "red.500" }} alignSelf="flex-end" mt="1"> Forget Password? </Link>
+              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "#59DBB7" }} alignSelf="flex-end" mt="1"> Forget Password? </Link>
             </FormControl>
             <Button onPress={() => { 
               axios.post(`${Env.default.ip}/login`,{ Email, Password })
@@ -70,12 +70,12 @@ export default function Signin({navigation}) {
                 console.log(error.message)
               })
               }}
-              mt="2" colorScheme="red"> Sign in </Button>
+              mt="2" backgroundColor="#59DBB7"> Sign in </Button>
             <HStack mt="6" justifyContent="center">
               <Text fontSize="sm" color="coolGray.600" _dark={{ color: "warmGray.200" }}> I'm a new user.{" "}
               </Text>
               <Pressable onPress={() => navigation.navigate('Signup')}>
-                <Text underline color="red.600"> Sign Up </Text>
+                <Text underline color="#59DBB7"> Sign Up </Text>
               </Pressable>
             </HStack>
           </VStack>

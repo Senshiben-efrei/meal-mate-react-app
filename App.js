@@ -6,7 +6,7 @@ import Navigation from './Stacks/Navigation'
 // Define the config
 const config = {
   useSystemColorMode: false,
-  initialColorMode: "dark",
+  initialColorMode: "light",
 };
 const customTheme = extendTheme({ config });
 

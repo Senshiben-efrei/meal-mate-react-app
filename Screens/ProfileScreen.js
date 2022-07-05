@@ -40,10 +40,10 @@ export default function Profile({navigation}) {
                 }} 
                 onPress={() => { navigation.navigate('Home Page') }}/>
 
-          <Box mt="80" ml="34" backgroundColor={colorMode === "dark" ? "gray.800" : "white"} borderRadius="15" w="84%" >
+          <Box mt="72" ml="34" backgroundColor={colorMode === "dark" ? "gray.800" : "white"} borderRadius="15" w="84%" >
             <VStack space="4" pl="32" pr="5" py="5">
               <Text fontWeight="extrabold" fontSize="2xl" >{userInfo.first_name + '\n' + userInfo.last_name}</Text>
-              <Text>{userInfo.email}</Text>
+              <Text fontSize="xs">{userInfo.email}</Text>
               <HStack space="4">
                 <Badge color="black" variant="outline" rounded="xl" >Fitness</Badge>
                 <Badge color="black" variant="outline" rounded="xl" >Vegan</Badge>
